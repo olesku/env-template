@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    name: "Test env-template"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Render template
+      uses: "./env-template/action"
+      id: render-template
+      with:
+        template_file: "./env-template/example.tmpl"
+        output_file: "example.out"
+      env:
+        FOO: "bar"
+        secrets: ${{ toJSON(secrets) }}
+
+    - name: Print template
+      shell: bash
+      run: |
+        cat example.out
+
