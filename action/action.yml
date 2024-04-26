@@ -7,6 +7,9 @@ inputs:
   output_file:
     description: "File to write rendered template to"
     required: false
+  version:
+    description: "Which env-template version to install"
+    default: "v1.0.0"
 runs:
   using: "composite"
   steps:
@@ -15,7 +18,7 @@ runs:
       shell: bash
       run: |
         which env-template > 2&>1 > /dev/null && (echo "env-template is already installed"; exit 0)
-        ENV_TEMPLATE_VERSION="v1.0.0"
+        ENV_TEMPLATE_VERSION="${{inputs.version}}"
         curl --silent -LO https://github.com/olesku/env-template/files/15119733/env-template-${ENV_TEMPLATE_VERSION}-linux-x86_64.tar.gz
         sudo tar -C /usr/bin -zxvf env-template-${ENV_TEMPLATE_VERSION}-linux-x86_64.tar.gz
         sudo chmod +x /usr/bin/env-template
