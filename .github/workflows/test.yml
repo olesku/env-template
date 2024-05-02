@@ -8,7 +8,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Render template
-      uses: "./env-template/action"
+      uses: "./env-template"
       id: render-template
       with:
         template_file: "./env-template/example.tmpl"
